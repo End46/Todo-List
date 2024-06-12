@@ -22,10 +22,58 @@
         </div>
     </div>
     <div id="Informacion">
-        <h1>Tareas de Hoy</h1>
-        <p>En esta pantalla se muestran las tareas de hoy</p>
+        <h1 id="info-h1">Tareas de Hoy</h1>
+        <p id="info-p">En esta pantalla se muestran las tareas de hoy</p>
+        <div>
+            <p>Leyenda de prioridad:</p>
+            <p class="alta">alta</p>
+            <p class="media">media</p>
+            <p class="baja">baja</p>
+        </div>
+        
     </div>
-    <div id="contenido"></div>
+    <div id="contenido">
+        <div class="task baja">
+            <div>
+                <h1>Sacar al perro</h1>
+                <button>Eliminar Tarea</button>
+            </div>
+            <div>
+                <p id="fecha">2024-6-11</p>
+                <button>Editar</button>
+            </div>
+        </div>
+        <div id="tarea2" class="task alta">
+            <div>
+                <h1>Sacar al perro</h1>
+                <button>Eliminar Tarea</button>
+            </div>
+            <div>
+                <p id="fecha">2024-6-11</p>
+                <button>Editar</button>
+            </div>
+        </div>
+        <div id="tarea3" class="task media">
+            <div>
+                <h1>Sacar al perro</h1>
+                <button>Eliminar Tarea</button>
+            </div>
+            <div>
+                <p id="fecha">2024-6-11</p>
+                <button>Editar</button>
+            </div>
+        </div>
+        <div id="tarea4" class="task baja">
+            <div>
+                <h1>Sacar al perro</h1>
+                <button>Eliminar Tarea</button>
+            </div>
+            <div>
+                <p id="fecha">2024-6-11</p>
+                <button>Editar</button>
+            </div>
+        </div>
+    </div>
     <dialog id="addProject">
         <form id="addProjectForm">
             <label for="name">Nombre del Proyecto</label>

@@ -73,6 +73,7 @@ li:active{
     justify-content: flex-start;
     padding: 2%;
     font-family:Arial, Helvetica, sans-serif;
+    text-align: center;
 }
 
 dialog:modal{
@@ -81,4 +82,31 @@ dialog:modal{
     padding: 16px;
     border: 8px solid #374151;
     border-radius: 24px;
+}
+
+#contenido{
+    overflow: auto;
+    height: 87vh;
+}
+
+#contenido>div{
+    border-bottom:2px solid;
+    padding-left: 5%;
+}
+
+.task>div{
+    display: flex;
+    gap:5%;
+}
+
+.alta{
+    background-color: #860000a8;
+}
+
+.media{
+    background-color: #3b0057bb;
+}
+
+.baja{
+    background-color: #0012af8a;
 }

@@ -47,27 +47,7 @@ function listarTareasSemanales(Proyecto){
     }
 }
 
-function listarTareasDeHoy(Proyecto){
-    if(Proyecto.getLength() == 0){
-        console.log('no hay tareas');
-    }else{
-        let count=0;
-        for(let i=0;i<Proyecto.getLength();i++){
-            let tarea = Proyecto.getTask(i);
-            if(isToday(tarea.fechaEntrega)){
-                console.log({
-                    name:tarea.name,
-                    prioridad:tarea.prioridad,
-                    fechaEntrega:tarea.fechaEntrega
-                });
-                count ++;
-            }
-        }
-        if(count==0){
-            console.log('parece que no tiene ninguna tarea para hoy')
-        }
-    }
-}
+
 
 function agregarTarea(proyecto){
     let nombre = AskTask();
