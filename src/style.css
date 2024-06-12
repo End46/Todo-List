@@ -10,8 +10,10 @@
 body{
     display: grid;
     grid-template-columns: repeat(5,1fr);
-    grid-template-rows: repeat(6,1fr);
+    grid-template-rows: repeat(8,1fr);
     grid-template-areas: 
+    "Lateral Informacion Informacion Informacion Informacion"
+    "Lateral contenido contenido contenido contenido"
     "Lateral contenido contenido contenido contenido"
     "Lateral contenido contenido contenido contenido"
     "Lateral contenido contenido contenido contenido"
@@ -61,4 +63,22 @@ li:active{
 
 #contenido{
     grid-area: contenido;
+}
+
+#Informacion{
+    grid-area: Informacion;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2%;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+dialog:modal{
+    top:30%;
+    left:30%;
+    padding: 16px;
+    border: 8px solid #374151;
+    border-radius: 24px;
 }

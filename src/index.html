@@ -9,9 +9,9 @@
     <div id="Lateral">
         <h1>Lista de Tareas</h1>
         <ul>
-            <li>Agregar Proyecto</li>
-            <li class="activo">Hoy</li>
-            <li>Próximo</li>
+            <li id="add">Agregar Proyecto</li>
+            <li id="hoy" class="activo">Hoy</li>
+            <li id="Próximo">Próximo</li>
         </ul>
        <div>
             <h2>Proyectos:</h2>
@@ -21,6 +21,20 @@
         </div>
         </div>
     </div>
+    <div id="Informacion">
+        <h1>Tareas de Hoy</h1>
+        <p>En esta pantalla se muestran las tareas de hoy</p>
+    </div>
     <div id="contenido"></div>
+    <dialog id="addProject">
+        <form id="addProjectForm">
+            <label for="name">Nombre del Proyecto</label>
+            <input type="text" id="name">
+            <label for="descripcion">Breve descripcion</label>
+            <textarea  id="descripcion" maxlength="100"></textarea>
+            <button id="confirm">Confirm</button>
+            <button id="cancel">Cancel</button>
+        </form>
+    </dialog>
 </body>
 </html>
