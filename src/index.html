@@ -9,9 +9,9 @@
     <div id="Lateral">
         <h1>Lista de Tareas</h1>
         <ul>
-            <li id="add">Agregar Proyecto</li>
             <li id="hoy" class="activo">Hoy</li>
             <li id="proximo">Próximo</li>
+            <li id="add">Agregar Proyecto</li>
         </ul>
        <div>
             <h2>Proyectos:</h2>
@@ -29,6 +29,7 @@
             <p class="alta">alta</p>
             <p class="media">media</p>
             <p class="baja">baja</p>
+            <p class="tarea-pasada">tarea vencida</p>
         </div>
         
     </div>
@@ -47,7 +48,7 @@
 
     <dialog id="dialogoTarea">
         <form id="formTarea">
-            <label for="nameTask">Nombre del Proyecto:</label>
+            <label for="nameTask">Titulo:</label>
             <input type="text" id="nameTask">
             <label for="prioridadTask">Prioridad:</label>
              <select id="prioridadTask">
@@ -57,8 +58,21 @@
              </select>
              <label for="fechaEntregaTask">Fecha de Entrega:</label>
              <input type="date" id="fechaEntregaTask">
-            <button id="confirmTarea">Confirm</button>
-            <button id="cancelTarea">Cancel</button>
+        </form>
+    </dialog>
+
+    <dialog id="dialogoAddTarea">
+        <form id="formAddTarea">
+            <label for="nameTask">Titulo:</label>
+            <input type="text" id="nameTask">
+            <label for="prioridadTask">Prioridad:</label>
+             <select id="prioridadTask">
+                <option value="alta">Alta</option>
+                <option value="media">Media</option>
+                <option value="baja">Baja</option>
+             </select>
+             <label for="fechaEntregaTask">Fecha de Entrega:</label>
+             <input type="date" id="fechaEntregaTask">
         </form>
     </dialog>
 </body>

@@ -10,13 +10,9 @@
 body{
     display: grid;
     grid-template-columns: repeat(5,1fr);
-    grid-template-rows: repeat(8,1fr);
+    grid-template-rows: repeat(4,1fr);
     grid-template-areas: 
     "Lateral Informacion Informacion Informacion Informacion"
-    "Lateral contenido contenido contenido contenido"
-    "Lateral contenido contenido contenido contenido"
-    "Lateral contenido contenido contenido contenido"
-    "Lateral contenido contenido contenido contenido"
     "Lateral contenido contenido contenido contenido"
     "Lateral contenido contenido contenido contenido"
     "Lateral contenido contenido contenido contenido";
@@ -30,7 +26,7 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
     height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
     gap: 3vh;
@@ -86,7 +82,6 @@ dialog:modal{
 
 #contenido{
     overflow: auto;
-    height: 87vh;
 }
 
 #contenido>div{
@@ -131,4 +126,22 @@ button:hover{
     background-image: url(iconos/check.svg);
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.tarea-pasada{
+    background-color: rgba(128, 128, 128, 0.795);
+}
+
+h1{
+    font-size: 3em;
+}
+
+ul{
+    font-size: 1.5em;
+}
+
+#botonAdd{
+    height: 3vh;
+    width: 8.5vw;
+    display: flex;
 }

@@ -69,13 +69,20 @@ function editarTarea(elemento,proyecto){
     const dialog = document.querySelector('#dialogoTarea');
     dialog.showModal();
     const form = document.querySelector('#formTarea');
-    const confirm = document.querySelector('#confirmTarea');
-    const cancel = document.querySelector('#cancelTarea');
-    const nameTask = document.querySelector('#nameTask');
+    const confirm = document.createElement('button');
+    const cancel = document.createElement('button');
+
+    confirm.textContent='confirmar';
+    cancel.textContent='cancelar';
+
+    form.appendChild(confirm);
+    form.appendChild(cancel);
+
     const prioridad = document.querySelector('#prioridadTask');
-    const fechaEntrega = document.querySelector('#fechaEntregaTask');
+
     form.nameTask.value=tarea.name;
-    form.setAttribute('value',`${tarea.fechaEntrega}`);
+    form.fechaEntregaTask.value=tarea.fechaEntrega;
+
     switch(`${tarea.prioridad}`){
         case 'alta':
             prioridad.options[0].selected = true;
@@ -92,11 +99,15 @@ function editarTarea(elemento,proyecto){
         event.preventDefault();
         editarTask(form,proyecto,id,elemento);
         dialog.close();
+        event.target.remove();
+        cancel.target.remove();
     })
 
     cancel.addEventListener('click',(event)=>{
         event.preventDefault();
         dialog.close();
+        event.target.remove();
+        confirm.target.remove();
     })
 }
 
@@ -182,6 +193,12 @@ function MostrarHoy(proyectos){
             contenido.removeChild(contenido.firstChild);
           }
     }
+
+    const eliminar = document.querySelector('#botonAdd');
+    if(eliminar != null){
+        eliminar.remove();
+    }
+
     let contador = 0;
     for(let i=0;i<proyectos.length;i++){
         let proyecto = proyectos[i];

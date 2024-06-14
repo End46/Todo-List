@@ -1,63 +1,9 @@
 import './style.css';   
 import { CreateProject } from './objetos';
-import { AskFecha,AskPrioridad,AskTask } from './AddTaskForm';
-import 'date-fns';
-import { isFuture, isThisWeek, isToday } from 'date-fns';
 import { MostrarHoy } from './hoy';
 import { MostrarProximo } from './proximo';
+import { listarTareas } from './proyecto';
 
-function listarTareas(Proyecto){
-    if(Proyecto.getLength() == 0){
-        console.log('no hay tareas');
-    }else{
-        for(let i=0;i<Proyecto.getLength();i++){
-            let tarea = Proyecto.getTask(i);
-            if(isFuture(tarea.fechaEntrega)){
-                console.log({
-                    name:tarea.name,
-                    prioridad:tarea.prioridad,
-                    fechaEntrega:tarea.fechaEntrega
-                });
-            }else{
-                console.log('tareas vencidas:',
-                    {
-                    name:tarea.name,
-                    prioridad:tarea.prioridad,
-                    fechaEntrega:tarea.fechaEntrega
-                });
-            }
-        }
-    }
-}
-
-function listarTareasSemanales(Proyecto){
-    if(Proyecto.getLength() == 0){
-        console.log('no hay tareas');
-    }else{
-        for(let i=0;i<Proyecto.getLength();i++){
-            let tarea = Proyecto.getTask(i);
-            if(isThisWeek(tarea.fechaEntrega)){
-                console.log({
-                    name:tarea.name,
-                    prioridad:tarea.prioridad,
-                    fechaEntrega:tarea.fechaEntrega
-                });
-            }else{
-                console.log('Parece que no tiene tareas pendientes esta semana.');
-            }
-        }
-    }
-}
-
-
-
-function agregarTarea(proyecto){
-    let nombre = AskTask();
-    let prioridad = AskPrioridad();
-    let fechaEntrega = AskFecha();
-
-    proyecto.addTask(nombre,prioridad,fechaEntrega);
-}
 
 function CambiarOpcionDeMenuActiva(event){
     const elementoActivo = document.querySelector('.activo');
@@ -74,15 +20,22 @@ function DomController(){
     const formProyecto = document.querySelector('#addProjectForm');
     const confirm = document.querySelector('#confirm');
     const cancel = document.querySelector('#cancel');
+    const titulo = document.querySelector('#info-h1');
+    const descripcion = document.querySelector('#info-p');
 
-
-    const addProyecto = (data,indice) =>{
+    const addProyecto = (data,indice,proyectoArray) =>{
         const elemento = document.createElement('li');
         elemento.textContent = data;
+        elemento.setAttribute('data-id',indice);
         elemento.setAttribute('id',`proyecto${indice}`);
         proyectos.appendChild(elemento);
-        elemento.addEventListener('click',(value)=>{
-
+        elemento.addEventListener('click',(event)=>{
+            CambiarOpcionDeMenuActiva(event.target);
+            let i = event.target.dataset.id;
+            let proyecto = proyectoArray[i];
+            titulo.textContent=proyecto.name;
+            descripcion.textContent=proyecto.description;
+            listarTareas(proyecto,event.target,proyectoArray);
         })
     }
 
@@ -91,7 +44,7 @@ function DomController(){
         elemento.remove();
     }
 
-    return{add,hoy,proximo,proyectos,addProyecto,dialogoProyecto,formProyecto,confirm,cancel,removeProyecto};
+    return{add,hoy,proximo,proyectos,addProyecto,dialogoProyecto,formProyecto,confirm,cancel,removeProyecto,titulo,descripcion};
 }
 
 
@@ -100,9 +53,7 @@ function main(){
     let proyectos = [];
     let proyecto = CreateProject('Varios','Proyecto default  para almacenar las tareas mas comunes');
     proyectos.push(proyecto);
-    dom.addProyecto(proyecto.name,'0'); 
-    agregarTarea(proyecto);
-    agregarTarea(proyecto);
+    dom.addProyecto(proyecto.name,'0',proyectos); 
     MostrarHoy(proyectos);
 
 
@@ -120,7 +71,7 @@ function main(){
             proyecto=CreateProject(nombre,description);
             proyectos.push(proyecto);
             let indice = proyectos.length-1;
-            dom.addProyecto(nombre,indice);
+            dom.addProyecto(nombre,indice,proyectos);
             dom.dialogoProyecto.close();
         }  
     })
@@ -132,11 +83,15 @@ function main(){
 
     dom.hoy.addEventListener('click',(event)=>{
         CambiarOpcionDeMenuActiva(event.target);
+        dom.titulo.textContent='Tareas de Hoy';
+        dom.descripcion.textContent='Aqui puede ver las tareas con fecha límite para hoy. Para añadir una nueva tarea elija un proyecto.';
         MostrarHoy(proyectos);
     })
 
     dom.proximo.addEventListener('click',(event)=>{
         CambiarOpcionDeMenuActiva(event.target);
+        dom.titulo.textContent='Proximas Tareas';
+        dom.descripcion.textContent='Aqui puede ver las tareas que tienen fecha límite en la proxima semana. Para añadir una nueva tarea elija un proyecto.';
         MostrarProximo(proyectos);
     })
     
