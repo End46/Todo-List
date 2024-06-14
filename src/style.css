@@ -89,6 +89,10 @@ dialog:modal{
     padding-left: 5%;
 }
 
+.task>div h1{
+    font-size: 1.5em;
+}
+
 .task>div{
     display: flex;
     gap:1%;
@@ -140,7 +144,7 @@ ul{
     font-size: 1.5em;
 }
 
-#botonAdd{
+#botonAdd,#botonEliminar{
     height: 3vh;
     width: 8.5vw;
     display: flex;

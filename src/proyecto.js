@@ -32,7 +32,7 @@ function mensajeNoHayTareas(contenido){
     }
 }
 
-function agregarTarea(form,proyecto){
+function agregarTarea(form,proyecto,elemento){
     let nombre = form.nameTask.value;
     let prioridad = form.prioridadTask.value;
     let fechaEntrega = form.fechaEntregaTask.value;
@@ -43,13 +43,13 @@ function agregarTarea(form,proyecto){
         alert('Por favor, complete todos los campos');
     }else if(isFuture(convertirFecha(fechaPaConvertir)) || isToday(convertirFecha(fechaPaConvertir))){
         proyecto.addTask(nombre,prioridad,fechaEntrega);
-        listarTareas(proyecto);
+        listarTareas(proyecto,elemento);
     }else{
         alert('Error: introduzca una fecha valida');
     }   
 }
 
-function agregarNuevaTarea(proyecto){
+function agregarNuevaTarea(proyecto,elemento){
     const dialog = document.querySelector('#dialogoAddTarea');
     dialog.showModal();
     
@@ -65,7 +65,7 @@ function agregarNuevaTarea(proyecto){
 
     confirm.addEventListener('click',(event)=>{
         event.preventDefault();
-        agregarTarea(form,proyecto);
+        agregarTarea(form,proyecto,elemento);
         dialog.close();
         event.target.remove();
         cancel.remove()
@@ -100,10 +100,10 @@ function editarTask(form,proyecto,id,elemento){
     }
 }
 
-function checkTask(check,proyecto){
+function checkTask(check,proyecto,elemento){
     let id = check.dataset.div;
     proyecto.removeTask(id);
-    listarTareas(proyecto)
+    listarTareas(proyecto,elemento)
 }
 
 function editarTarea(elemento,proyecto){
@@ -254,7 +254,7 @@ function listarTareas(Proyecto,elementoProyecto,proyectoArray){
     
     informacion.appendChild(nuevaTaskButton);
     nuevaTaskButton.addEventListener('click',()=>{
-        agregarNuevaTarea(Proyecto);
+        agregarNuevaTarea(Proyecto,elementoProyecto);
     })
 
     nuevaTaskButton.textContent='Agregar Tarea'
@@ -304,7 +304,7 @@ function listarTareas(Proyecto,elementoProyecto,proyectoArray){
                 mouseSalio(value.target);
             })
             check.addEventListener('click',(event)=>{
-                checkTask(event.target,Proyecto);
+                checkTask(event.target,Proyecto,elementoProyecto);
             })
             console.log({
                 name:tarea.name,

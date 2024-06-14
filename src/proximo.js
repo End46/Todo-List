@@ -1,4 +1,4 @@
-import { addDays, endOfToday, getTime, isBefore, isFuture, toDate} from 'date-fns';
+import { addDays, isBefore, isFuture, isToday} from 'date-fns';
 
 function convertirFecha(tarea){
     let fechaString = tarea.fechaEntrega;
@@ -36,8 +36,8 @@ function editarTask(form,proyecto,id,elemento){
     let fecha = {
         fechaEntrega : form.fechaEntregaTask.value
     }
-    let fecha2 = addDays(convertirFecha(fecha),7);
-    if(isFuture(convertirFecha(fecha)) || isBefore(convertirFecha(fecha),fecha2)){
+    let fecha2 = addDays(new Date(),7);
+    if(isFuture(convertirFecha(fecha)) || isToday(convertirFecha(fecha))){
         proyecto.editNameTask(id,form.nameTask.value);
         proyecto.editPrioridadTask(id,form.prioridadTask.value);
         proyecto.editFechaTask(id,form.fechaEntregaTask.value);
@@ -143,8 +143,7 @@ function listarTareasSemanal(Proyecto,contenido,contador,proyectos){
     }else{
         for(let i=0;i<Proyecto.getLength();i++){
             let tarea = Proyecto.getTask(i);
-            let fecha2 = addDays('2024-6-14',7);/* Agregar funcion para tomar hora de hoy*/
-            console.log(fecha);
+            let fecha2 = addDays(new Date(),7);
             if(isBefore(convertirFecha(tarea),fecha2)){
                 const div = document.createElement('div');
                 const titulo = document.createElement('div');
