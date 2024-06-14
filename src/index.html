@@ -11,7 +11,7 @@
         <ul>
             <li id="add">Agregar Proyecto</li>
             <li id="hoy" class="activo">Hoy</li>
-            <li id="Próximo">Próximo</li>
+            <li id="proximo">Próximo</li>
         </ul>
        <div>
             <h2>Proyectos:</h2>
@@ -32,48 +32,8 @@
         </div>
         
     </div>
-    <div id="contenido">
-        <div class="task baja">
-            <div>
-                <h1>Sacar al perro</h1>
-                <button>Eliminar Tarea</button>
-            </div>
-            <div>
-                <p id="fecha">2024-6-11</p>
-                <button>Editar</button>
-            </div>
-        </div>
-        <div id="tarea2" class="task alta">
-            <div>
-                <h1>Sacar al perro</h1>
-                <button>Eliminar Tarea</button>
-            </div>
-            <div>
-                <p id="fecha">2024-6-11</p>
-                <button>Editar</button>
-            </div>
-        </div>
-        <div id="tarea3" class="task media">
-            <div>
-                <h1>Sacar al perro</h1>
-                <button>Eliminar Tarea</button>
-            </div>
-            <div>
-                <p id="fecha">2024-6-11</p>
-                <button>Editar</button>
-            </div>
-        </div>
-        <div id="tarea4" class="task baja">
-            <div>
-                <h1>Sacar al perro</h1>
-                <button>Eliminar Tarea</button>
-            </div>
-            <div>
-                <p id="fecha">2024-6-11</p>
-                <button>Editar</button>
-            </div>
-        </div>
-    </div>
+    <div id="contenido"></div>
+
     <dialog id="addProject">
         <form id="addProjectForm">
             <label for="name">Nombre del Proyecto</label>
@@ -82,6 +42,23 @@
             <textarea  id="descripcion" maxlength="100"></textarea>
             <button id="confirm">Confirm</button>
             <button id="cancel">Cancel</button>
+        </form>
+    </dialog>
+
+    <dialog id="dialogoTarea">
+        <form id="formTarea">
+            <label for="nameTask">Nombre del Proyecto:</label>
+            <input type="text" id="nameTask">
+            <label for="prioridadTask">Prioridad:</label>
+             <select id="prioridadTask">
+                <option value="alta">Alta</option>
+                <option value="media">Media</option>
+                <option value="baja">Baja</option>
+             </select>
+             <label for="fechaEntregaTask">Fecha de Entrega:</label>
+             <input type="date" id="fechaEntregaTask">
+            <button id="confirmTarea">Confirm</button>
+            <button id="cancelTarea">Cancel</button>
         </form>
     </dialog>
 </body>

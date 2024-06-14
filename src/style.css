@@ -96,17 +96,39 @@ dialog:modal{
 
 .task>div{
     display: flex;
-    gap:5%;
+    gap:1%;
 }
 
 .alta{
-    background-color: #860000a8;
+    background-color: #ce1d1da8;
 }
 
 .media{
-    background-color: #3b0057bb;
+    background-color: #beb429bb;
 }
 
 .baja{
     background-color: #0012af8a;
+}
+
+.cursor{
+    cursor: pointer;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+
+.botonCheck{
+    width:20px;
+    height: 20px;
+    align-self: center;
+}
+
+.botonCheck:hover{
+    cursor: pointer;
+    background-image: url(iconos/check.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }

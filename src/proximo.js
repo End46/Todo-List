@@ -1,4 +1,4 @@
-import { isFuture,isToday } from 'date-fns';
+import { addDays, isBefore, isFuture} from 'date-fns';
 
 function convertirFecha(tarea){
     let fechaString = tarea.fechaEntrega;
@@ -26,7 +26,7 @@ function mensajeNoHayTareas(contenido){
         const p = document.createElement('p');
         contenido.appendChild(mensaje);
         mensaje.appendChild(p);
-        p.textContent = 'No tiene Tareas Pendientes Para Hoy';
+        p.textContent = 'No tiene Tareas Pendientes en los Próximos 7 dias';
         mensaje.classList.add('eliminar');
         mensaje.classList.add('baja');
     }
@@ -36,13 +36,14 @@ function editarTask(form,proyecto,id,elemento){
     let fecha = {
         fechaEntrega : form.fechaEntregaTask.value
     }
-    if(isFuture(convertirFecha(fecha)) || isToday(convertirFecha(fecha))){
+    let fecha2 = addDays(convertirFecha(fecha),7);
+    if(isFuture(convertirFecha(fecha)) || isBefore(convertirFecha(fecha),fecha2)){
         proyecto.editNameTask(id,form.nameTask.value);
         proyecto.editPrioridadTask(id,form.prioridadTask.value);
         proyecto.editFechaTask(id,form.fechaEntregaTask.value);
         let tarea = proyecto.getTask(id);
         convertirFecha(tarea);
-        if(isToday(convertirFecha(tarea))){
+        if(isBefore(convertirFecha(tarea),fecha2)){
             elemento.removeAttribute('prioridad');
             elemento.classList.add(tarea.prioridad);
             const h1 = document.querySelector(`#h${elemento.id}`);
@@ -59,8 +60,8 @@ function editarTask(form,proyecto,id,elemento){
 
 function checkTask(check,proyecto,proyectos){
     let id = check.dataset.div;
-    proyecto.removeTask(check.dataset.id);
-    MostrarHoy(proyectos)
+    proyecto.removeTask(id);
+    MostrarProximo(proyectos);
 }
 
 function editarTarea(elemento,proyecto){
@@ -125,14 +126,15 @@ function mouseSalio(elemento){
     elemento.removeChild(child);
 }
 
-function listarTareasDeHoy(Proyecto,contenido,contador,proyectos){
+function listarTareasSemanal(Proyecto,contenido,contador,proyectos){
     let count=contador;
     if(Proyecto.getLength() == 0){
         console.log('no hay tareas');
     }else{
         for(let i=0;i<Proyecto.getLength();i++){
             let tarea = Proyecto.getTask(i);
-            if(isToday(convertirFecha(tarea))){
+            let fecha2 = addDays(convertirFecha(tarea),7);
+            if(isBefore(convertirFecha(tarea),fecha2)){
                 const div = document.createElement('div');
                 const titulo = document.createElement('div');
                 div.appendChild(titulo);
@@ -175,21 +177,22 @@ function listarTareasDeHoy(Proyecto,contenido,contador,proyectos){
     return count;
 }
 
-function MostrarHoy(proyectos){
+function MostrarProximo(proyectos){
     const contenido = document.querySelector('#contenido');
     if(contenido.firstChild != null){
         while (contenido.firstChild) {
             contenido.removeChild(contenido.firstChild);
           }
     }
+    
     let contador = 0;
     for(let i=0;i<proyectos.length;i++){
         let proyecto = proyectos[i];
-        contador= listarTareasDeHoy(proyecto,contenido,contador,proyectos);
+        contador= listarTareasSemanal(proyecto,contenido,contador,proyectos);
     }
     if(contador == 0){
         mensajeNoHayTareas(contenido);
     }
 }
 
-export{MostrarHoy};
+export{MostrarProximo};

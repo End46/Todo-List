@@ -3,6 +3,8 @@ import { CreateProject } from './objetos';
 import { AskFecha,AskPrioridad,AskTask } from './AddTaskForm';
 import 'date-fns';
 import { isFuture, isThisWeek, isToday } from 'date-fns';
+import { MostrarHoy } from './hoy';
+import { MostrarProximo } from './proximo';
 
 function listarTareas(Proyecto){
     if(Proyecto.getLength() == 0){
@@ -57,6 +59,12 @@ function agregarTarea(proyecto){
     proyecto.addTask(nombre,prioridad,fechaEntrega);
 }
 
+function CambiarOpcionDeMenuActiva(event){
+    const elementoActivo = document.querySelector('.activo');
+    elementoActivo.classList.remove('activo');
+    event.classList.add('activo');
+}
+
 function DomController(){
     const add=document.querySelector('#add');
     const hoy=document.querySelector('#hoy');
@@ -74,7 +82,7 @@ function DomController(){
         elemento.setAttribute('id',`proyecto${indice}`);
         proyectos.appendChild(elemento);
         elemento.addEventListener('click',(value)=>{
-            funcion
+
         })
     }
 
@@ -92,8 +100,11 @@ function main(){
     let proyectos = [];
     let proyecto = CreateProject('Varios','Proyecto default  para almacenar las tareas mas comunes');
     proyectos.push(proyecto);
-    dom.addProyecto(proyecto.name,'0');
-    let activo='hoy';
+    dom.addProyecto(proyecto.name,'0'); 
+    agregarTarea(proyecto);
+    agregarTarea(proyecto);
+    MostrarHoy(proyectos);
+
 
     dom.add.addEventListener('click',()=>{
         dom.dialogoProyecto.showModal();
@@ -118,6 +129,17 @@ function main(){
         event.preventDefault();
         dom.dialogoProyecto.close();
     })
+
+    dom.hoy.addEventListener('click',(event)=>{
+        CambiarOpcionDeMenuActiva(event.target);
+        MostrarHoy(proyectos);
+    })
+
+    dom.proximo.addEventListener('click',(event)=>{
+        CambiarOpcionDeMenuActiva(event.target);
+        MostrarProximo(proyectos);
+    })
+    
     
 }
 
