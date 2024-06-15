@@ -3,6 +3,7 @@ import { CreateProject } from './objetos';
 import { MostrarHoy } from './hoy';
 import { MostrarProximo } from './proximo';
 import { listarTareas } from './proyecto';
+import { cargar,guardar } from './guardar_cargar';
 
 
 function CambiarOpcionDeMenuActiva(event){
@@ -22,6 +23,7 @@ function DomController(){
     const cancel = document.querySelector('#cancel');
     const titulo = document.querySelector('#info-h1');
     const descripcion = document.querySelector('#info-p');
+    const guardado = document.querySelector('#guardar');
 
     const addProyecto = (data,indice,proyectoArray) =>{
         const elemento = document.createElement('li');
@@ -36,6 +38,7 @@ function DomController(){
             titulo.textContent=proyecto.name;
             descripcion.textContent=proyecto.description;
             listarTareas(proyecto,event.target,proyectoArray);
+            guardar(proyectoArray);
         })
     }
 
@@ -44,18 +47,22 @@ function DomController(){
         elemento.remove();
     }
 
-    return{add,hoy,proximo,proyectos,addProyecto,dialogoProyecto,formProyecto,confirm,cancel,removeProyecto,titulo,descripcion};
+    return{add,hoy,proximo,proyectos,addProyecto,dialogoProyecto,formProyecto,confirm,cancel,removeProyecto,titulo,descripcion,guardado};
 }
 
 
 function main(){
     const dom=DomController();
     let proyectos = [];
-    let proyecto = CreateProject('Varios','Proyecto default  para almacenar las tareas mas comunes');
-    proyectos.push(proyecto);
-    dom.addProyecto(proyecto.name,'0',proyectos); 
+    
+    if(cargar(proyectos,dom)){
+        let proyecto = CreateProject('Varios','Proyecto default  para almacenar las tareas mas comunes');
+        proyectos.push(proyecto);
+        dom.addProyecto(proyecto.name,'0',proyectos);
+    }
+    
+    
     MostrarHoy(proyectos);
-
 
     dom.add.addEventListener('click',()=>{
         dom.dialogoProyecto.showModal();
@@ -68,7 +75,7 @@ function main(){
         if(nombre == '' || description == ''){
             alert('Rellene Todo el formulario')
         }else{
-            proyecto=CreateProject(nombre,description);
+           let proyecto=CreateProject(nombre,description);
             proyectos.push(proyecto);
             let indice = proyectos.length-1;
             dom.addProyecto(nombre,indice,proyectos);
@@ -86,6 +93,7 @@ function main(){
         dom.titulo.textContent='Tareas de Hoy';
         dom.descripcion.textContent='Aqui puede ver las tareas con fecha límite para hoy. Para añadir una nueva tarea elija un proyecto.';
         MostrarHoy(proyectos);
+        guardar(proyectos);
     })
 
     dom.proximo.addEventListener('click',(event)=>{
@@ -93,8 +101,13 @@ function main(){
         dom.titulo.textContent='Proximas Tareas';
         dom.descripcion.textContent='Aqui puede ver las tareas que tienen fecha límite en la proxima semana. Para añadir una nueva tarea elija un proyecto.';
         MostrarProximo(proyectos);
+        guardar(proyectos);
     })
     
+    dom.guardado.addEventListener('click',()=>{
+        console.log(proyectos);
+        guardar(proyectos);
+    })
     
 }
 

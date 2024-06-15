@@ -1,10 +1,6 @@
 function CreateTask(name,prioridad,fechaEntrega){
-    let completada=false;
 
-    const getCompletada = ()=> completada;
-    const setCompletada = ()=> completada=true;
-
-    return{name,prioridad,fechaEntrega,getCompletada,setCompletada};
+    return{name,prioridad,fechaEntrega};
 }
 
 function CreateProject(name,description){
@@ -15,6 +11,8 @@ function CreateProject(name,description){
         let task = CreateTask(nombre,prioridad,fechaEntrega);
         tasks.push(task);
     }
+
+    const cargarTasks = (data) => tasks=data;
 
     const getLength = () => tasks.length;
 
@@ -37,7 +35,8 @@ function CreateProject(name,description){
         tasks[i].fechaEntrega=data;
     }
 
-    return{name,description,addTask,getTask,removeTask,getLength,editNameTask,editPrioridadTask,editFechaTask};
+
+    return{name,description,tasks,addTask,getTask,removeTask,getLength,editNameTask,editPrioridadTask,editFechaTask,cargarTasks};
 }
 
 export{ CreateProject};

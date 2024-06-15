@@ -1,4 +1,5 @@
 import { isFuture,isToday,isPast } from 'date-fns';
+import { guardar } from './guardar_cargar';
 
 function convertirFecha(tarea){
     let fechaString = tarea.fechaEntrega;
@@ -100,10 +101,10 @@ function editarTask(form,proyecto,id,elemento){
     }
 }
 
-function checkTask(check,proyecto,elemento){
+function checkTask(check,proyecto,elemento,proyectoArray){
     let id = check.dataset.div;
     proyecto.removeTask(id);
-    listarTareas(proyecto,elemento)
+    listarTareas(proyecto,elemento,proyectoArray)
 }
 
 function editarTarea(elemento,proyecto){
@@ -304,7 +305,7 @@ function listarTareas(Proyecto,elementoProyecto,proyectoArray){
                 mouseSalio(value.target);
             })
             check.addEventListener('click',(event)=>{
-                checkTask(event.target,Proyecto,elementoProyecto);
+                checkTask(event.target,Proyecto,elementoProyecto,proyectoArray);
             })
             console.log({
                 name:tarea.name,

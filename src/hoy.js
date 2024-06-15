@@ -100,14 +100,14 @@ function editarTarea(elemento,proyecto){
         editarTask(form,proyecto,id,elemento);
         dialog.close();
         event.target.remove();
-        cancel.target.remove();
+        cancel.remove();
     })
 
     cancel.addEventListener('click',(event)=>{
         event.preventDefault();
         dialog.close();
         event.target.remove();
-        confirm.target.remove();
+        confirm.remove();
     })
 }
 
